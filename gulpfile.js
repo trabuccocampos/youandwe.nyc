@@ -9,6 +9,8 @@ var gutil = require('gulp-util');
 // load plugins
 var $ = require('gulp-load-plugins')();
 
+// addition main-bower-files
+
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
         .pipe($.plumber(function(error) {
@@ -16,7 +18,7 @@ gulp.task('styles', function () {
             gutil.beep();
             this.emit('end');
         }))
-        .pipe($.sass({errLogToConsole: true}))
+        .pipe($.sass({errLogToConsole: true, sourcemap: true}))
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
         .pipe(reload({stream:true}))
@@ -63,7 +65,7 @@ gulp.task('images', function () {
 gulp.task('fonts', function () {
     var streamqueue = require('streamqueue');
     return streamqueue({objectMode: true},
-        $.bowerFiles(),
+        $.mainBowerFiles(),
         gulp.src('app/fonts/**/*')
     )
         .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
