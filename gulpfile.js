@@ -9,7 +9,7 @@ var gutil = require('gulp-util');
 // load plugins
 var $ = require('gulp-load-plugins')();
 
-// addition main-bower-files
+// addition main-bower-files gulp-sourcemaps gulp-concat
 
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
@@ -18,7 +18,19 @@ gulp.task('styles', function () {
             gutil.beep();
             this.emit('end');
         }))
-        .pipe($.sass({errLogToConsole: true, sourcemap: true}))
+        .pipe($.sourcemaps.init())
+            .pipe($.sass())
+            .pipe($.autoprefixer('last 1 version'))
+            .pipe($.concat('main.css'))
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest('app/styles'))
+        .pipe(reload({stream:true}))
+        .pipe($.size());
+});
+
+gulp.task('styles-build', function () {
+    return gulp.src('app/styles/main.scss')
+        .pipe($.sass({errLogToConsole: true}))
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
         .pipe(reload({stream:true}))
@@ -32,7 +44,7 @@ gulp.task('scripts', function () {
         .pipe($.size());
 });
 
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['styles-build', 'scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
@@ -62,23 +74,23 @@ gulp.task('images', function () {
         .pipe($.size());
 });
 
-gulp.task('fonts', function () {
-    var streamqueue = require('streamqueue');
-    return streamqueue({objectMode: true},
-        $.mainBowerFiles(),
-        gulp.src('app/fonts/**/*')
-    )
-        .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-        .pipe($.flatten())
-        .pipe(gulp.dest('dist/fonts'))
-        .pipe($.size());
-});
+// gulp.task('fonts', function () {
+//     var streamqueue = require('streamqueue');
+//     return streamqueue({objectMode: true},
+//         $.mainBowerFiles(),
+//         gulp.src('app/fonts/**/*')
+//     )
+//         .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
+//         .pipe($.flatten())
+//         .pipe(gulp.dest('dist/fonts'))
+//         .pipe($.size());
+// });
 
 gulp.task('clean', function () {
     return gulp.src(['app/styles/main.css', 'dist'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['html', 'images', 'fonts']);
+gulp.task('build', ['html', 'images']);
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
