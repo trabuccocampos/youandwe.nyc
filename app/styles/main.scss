@@ -4,6 +4,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+// partials
+@import "pages/dayof";
+@import "pages/registry";
+// @import "plugins/monocle";
+
+
 .browsehappy {
     margin: 0.2em 0;
     background: #c99;
@@ -11,61 +17,62 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
     padding: 0.2em 0;
 }
 
-/* Space out content a bit */
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+// Improve font rendering
+* {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
+// Full height windows
+html,
+body,
+.page-wrap,
+.page,
+.container {
+    height: 100%;
+}
+
+// Navigation
+.nav {
+    margin-top: 10px;
+}
+
+// General
+.page a {
+    border-bottom: 1px dotted $link-color;
+
+    &:hover {
+        text-decoration: none;
+        border-bottom: 1px solid $link-color;
+    }
+}
+
+
+// Essentials screen, vertically centered
+.center-content {
+    height: 90%;
+}
+
+.essentials {
+    @include center-vertically();
+
+    text-align: center;
+
+    overflow: hidden;
+
     padding-left: 15px;
     padding-right: 15px;
-}
 
-/* Custom page header */
-.header {
-    border-bottom: 1px solid #e5e5e5;
+    h1 {
+        // font-family: $font-family-titling;
+        font-size: 18em;
+        color: $gray-lighter;
+        color: $brand-warning;
+        font-weight: bold;
 
-    /* Make the masthead heading the same height as the navigation */
-    h3 {
-        margin-top: 0;
-        margin-bottom: 0;
-        line-height: 40px;
-        padding-bottom: 19px;
     }
 }
 
-/* Custom page footer */
-.footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-    margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
-    .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-    }
-}
-
-/* Supporting marketing content */
-.marketing {
-    margin: 40px 0;
-    p + h4 {
-        margin-top: 28px;
-    }
-}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -87,7 +94,7 @@ body {
     }
 
     /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
+    .essentials {
         border-bottom: 0;
     }
 }

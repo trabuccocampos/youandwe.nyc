@@ -1,0 +1,63 @@
+// Registry styles
+$registry-color: white;
+$registry-border: 3px solid $registry-color;
+
+#registry {
+	background: $pink;
+	color: $registry-color;
+	
+	padding-top: 20px;
+
+	position: relative;
+
+	a {
+		color: $registry-color;
+		border-color: $registry-color;
+	}
+	
+	.row {
+		@include center-vertically();
+		height: 40%;
+		border: $registry-border;
+		// border-radius: $border-radius-base*3;
+	}
+
+	.col-sm-12 {
+		border-bottom: $registry-border;
+		padding-bottom: 20px;
+		display: table-cell;
+		height: 20%;
+		padding-top: 20px;
+	}
+
+	.left-side {
+		display: table-cell;
+		height: 80%;
+		text-align: center;
+		vertical-align: middle;
+		padding-top: 10%;
+		border-right: $registry-border;
+
+		a {
+			// font-family: "jubilat";
+			font-size: 4em;
+			text-decoration: none;
+			border-bottom: 2px dotted $registry-color;
+
+			&:hover,
+			&:focus {
+				border-bottom: 2px solid $registry-color;
+			}
+		}
+	}
+
+	.right-side {
+		display: table;
+		height: 100%;
+
+		div:first-child {
+			height: 60%;
+			border-bottom: $registry-border;
+		}
+	}
+}

@@ -23,6 +23,7 @@ gulp.task('styles', function () {
             .pipe($.autoprefixer('last 1 version'))
             .pipe($.concat('main.css'))
         .pipe($.sourcemaps.write('.'))
+        .pipe($.filter('**/*.css'))
         .pipe(gulp.dest('app/styles'))
         .pipe(reload({stream:true}))
         .pipe($.size());
