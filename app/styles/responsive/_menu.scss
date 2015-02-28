@@ -1,0 +1,150 @@
+// Navigation
+.nav {
+    margin-top: 10px;
+    position: fixed;
+    z-index: $zindex-navbar-fixed;
+    width: 100%;
+    color: white;
+
+    a {
+        color: white;
+
+        &.hover,
+        &.focus,
+        &.active {
+            font-weight: bold;
+            padding-bottom: 0.3em;
+            border-bottom: 2px solid white;
+
+            @media (max-width: 767px) {
+              border-bottom: none;
+            }
+        }
+    }
+}
+
+.nav-pills > li {
+  @media (max-width: 767px) {
+    display: block;
+  }
+}
+
+.menu-closed ul {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+// Navbar toggle
+//
+// Custom button for toggling the `.navbar-collapse`, powered by the collapse
+// JavaScript plugin.
+
+.navbar-toggle {
+  position: absolute;
+  right: 0;
+  margin-right: $navbar-padding-horizontal;
+  padding: 9px 10px;
+  @include navbar-vertical-align(34px);
+  background-color: transparent;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid transparent;
+  border-radius: $border-radius-base;
+  z-index: 1040;
+
+  text-align: right;
+
+  // We remove the `outline` here, but later compensate by attaching `:hover`
+  // styles to `:focus`.
+  &:focus {
+    outline: 0;
+  }
+
+  // Bars
+  .icon-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: white;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 5px;
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    display: none;
+  }
+}
+
+// // Collapsing setup
+// @media (max-width: 767px) {
+
+//   .collapse {
+//       display: none;
+//       visibility: hidden
+//   }
+
+//   .collapse.in {
+//       display: block;
+//       visibility: visible
+//   }
+//   .collapsing {
+//       position: relative;
+//       height: 0;
+//       overflow: hidden;
+//       transition-timing-function: ease;
+//       transition-duration: .35s;
+//       transition-property: height, visibility
+//   }
+// }
+
+// Navbar collapse (body)
+//
+// Group your navbar content into this for easy collapsing and expanding across
+// various device sizes. By default, this content is collapsed when <768px, but
+// will expand past that for a horizontal display.
+//
+// To start (on mobile devices) the navbar links, forms, and buttons are stacked
+// vertically and include a `max-height` to overflow in case you have too much
+// content for the user's viewport.
+
+// .navbar-collapse {
+//   overflow-x: visible;
+//   padding-right: $navbar-padding-horizontal;
+//   padding-left:  $navbar-padding-horizontal;
+//   border-top: 1px solid transparent;
+//   box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+//   @include clearfix();
+//   -webkit-overflow-scrolling: touch;
+
+//   &.in {
+//     overflow-y: auto;
+//   }
+
+//   @media (min-width: $grid-float-breakpoint) {
+//     width: auto;
+//     border-top: 0;
+//     box-shadow: none;
+
+//     &.collapse {
+//       display: block !important;
+//       height: auto !important;
+//       padding-bottom: 0; // Override default setting
+//       overflow: visible !important;
+//     }
+
+//     &.in {
+//       overflow-y: visible;
+//     }
+
+//     // Undo the collapse side padding for navbars with containers to ensure
+//     // alignment of right-aligned contents.
+//     .navbar-fixed-top &,
+//     .navbar-static-top &,
+//     .navbar-fixed-bottom & {
+//       padding-left: 0;
+//       padding-right: 0;
+//     }
+//   }
+// }

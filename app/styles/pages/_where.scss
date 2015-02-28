@@ -1,0 +1,70 @@
+#where {
+	text-align: center;
+	min-height: 100%;
+
+	.row {
+		height: auto;
+		padding-top: 30%;
+		@include center-vertically();
+	}
+
+	.map {
+		@extend .col-xs-12;
+		margin-bottom: 1em;
+
+		position: relative;
+
+		div div {
+			position: absolute;
+		}
+
+		button {
+			border: none;
+			border-radius: 50%;
+			width: 1.6em;
+			height: 1.6em;
+			background-color: $baby-blue;
+
+			text-align: center;
+			font-weight: bold;
+			font-size: 1.1em;
+
+			@media (max-width: $grid-float-breakpoint) {
+				padding-left: 0.5em;
+			}
+		}
+	}
+
+	a {
+		border-bottom: none;
+	}
+
+	#irvington {
+		top: 50%;
+		right: 43%;
+		// add pulsating animation
+	}
+
+	#tarrytown-house {
+		top: 10%;
+		right: 30%;
+	}
+
+	#doubletree {
+		top: 30%;
+		right: 45%;
+	}
+
+	#nyc-text {
+		transform: rotate(-90deg);
+		left:-3%;
+		bottom: 35%;
+		font-weight: bold;
+
+		@media (min-width: $grid-float-breakpoint) {
+			left:-1%;
+			bottom: 30%;
+			font-size: 1.5em;
+		}
+	}
+}

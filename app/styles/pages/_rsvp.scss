@@ -1,0 +1,7 @@
+#rsvp {
+	text-align: center;
+
+	.row {
+		@include center-vertically();
+	}
+}

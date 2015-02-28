@@ -1,9 +1,10 @@
 // Registry styles
 $registry-color: white;
+// $registry-color: $teal;
 $registry-border: 3px solid $registry-color;
 
 #registry {
-	background: $pink;
+	// background: $pink;
 	color: $registry-color;
 	
 	padding-top: 20px;
@@ -18,8 +19,15 @@ $registry-border: 3px solid $registry-color;
 	.row {
 		@include center-vertically();
 		height: 40%;
+		min-height: 300px;
 		border: $registry-border;
-		// border-radius: $border-radius-base*3;
+		border-radius: $border-radius-base*3;
+		text-align: center;
+
+		width: 100%;
+		margin: 0 auto;
+
+		// background: white;
 	}
 
 	.col-sm-12 {
@@ -33,20 +41,27 @@ $registry-border: 3px solid $registry-color;
 	.left-side {
 		display: table-cell;
 		height: 80%;
-		text-align: center;
-		vertical-align: middle;
-		padding-top: 10%;
 		border-right: $registry-border;
 
+		div {
+			@include center-vertically();
+
+			margin-top: -20px;
+		}
+
 		a {
-			// font-family: "jubilat";
+			font-family: $font-family-titling;
+			font-style: italic;
+			padding-top: 0;
 			font-size: 4em;
+			line-height: 1em;
 			text-decoration: none;
 			border-bottom: 2px dotted $registry-color;
 
 			&:hover,
 			&:focus {
 				border-bottom: 2px solid $registry-color;
+				font-weight: bold;
 			}
 		}
 	}
@@ -54,10 +69,30 @@ $registry-border: 3px solid $registry-color;
 	.right-side {
 		display: table;
 		height: 100%;
+		margin: 0;
+		padding: 0;
+
+		div {
+			padding-left: 15px;
+			padding-right: 15px;
+			padding-top: 10px;
+		}
 
 		div:first-child {
 			height: 60%;
 			border-bottom: $registry-border;
+		}
+
+		address {
+			@include center-vertically();
+
+			// line-height: 1.8em;
+
+			.mono {
+				font-weight: bold;
+				font-family: $font-family-sans-serif;
+				font-size: 21px;
+			}
 		}
 	}
 }

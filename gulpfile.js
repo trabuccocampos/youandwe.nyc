@@ -5,11 +5,15 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var gutil = require('gulp-util');
+var fs = require('fs');
+
+var aws = JSON.parse(fs.readFileSync('./aws.json'));
+var options = { gzippedOnly: true, headers: {'Cache-Control': 'max-age=315360000, no-transform, public'} };
 
 // load plugins
 var $ = require('gulp-load-plugins')();
 
-// addition main-bower-files gulp-sourcemaps gulp-concat
+// addition main-bower-files gulp-sourcemaps gulp-concat gulp-gzip gulp-s3 fs
 
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
@@ -18,11 +22,11 @@ gulp.task('styles', function () {
             gutil.beep();
             this.emit('end');
         }))
-        .pipe($.sourcemaps.init())
-            .pipe($.sass())
-            .pipe($.autoprefixer('last 1 version'))
-            .pipe($.concat('main.css'))
-        .pipe($.sourcemaps.write('.'))
+        // .pipe($.sourcemaps.init())
+        .pipe($.sass())
+        .pipe($.autoprefixer('last 1 version'))
+        .pipe($.concat('main.css'))
+        // .pipe($.sourcemaps.write('.'))
         .pipe($.filter('**/*.css'))
         .pipe(gulp.dest('app/styles'))
         .pipe(reload({stream:true}))
@@ -31,7 +35,7 @@ gulp.task('styles', function () {
 
 gulp.task('styles-build', function () {
     return gulp.src('app/styles/main.scss')
-        .pipe($.sass({errLogToConsole: true}))
+        .pipe($.sass({}))
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
         .pipe(reload({stream:true}))
@@ -65,11 +69,11 @@ gulp.task('html', ['styles-build', 'scripts'], function () {
 
 gulp.task('images', function () {
     return gulp.src('app/images/**/*')
-        .pipe($.cache($.imagemin({
+        .pipe($.imagemin({
             optimizationLevel: 3,
             progressive: true,
             interlaced: true
-        })))
+        }))
         .pipe(gulp.dest('dist/images'))
         .pipe(reload({stream:true, once:true}))
         .pipe($.size());
@@ -88,7 +92,8 @@ gulp.task('images', function () {
 // });
 
 gulp.task('clean', function () {
-    return gulp.src(['app/styles/main.css', 'dist'], { read: false }).pipe($.clean());
+    return gulp.src(['app/styles/main.css', 'dist'], { read: false })
+    .pipe($.clean());
 });
 
 gulp.task('build', ['html', 'images']);
@@ -97,14 +102,20 @@ gulp.task('default', ['clean'], function () {
     gulp.start('build');
 });
 
+gulp.task('publish', function() {
+    return gulp.src('./dist/**')
+        .pipe($.gzip())
+        .pipe($.s3(aws, options));
+});
+
 gulp.task('serve', ['styles'], function () {
     browserSync.init(null, {
         server: {
             baseDir: 'app',
             directory: true
         },
-        debugInfo: false,
-        open: false,
+        debugInfo: true,
+        open: true,
         hostnameSuffix: ".xip.io"
     }, function (err, bs) {
         require('opn')(bs.options.url);

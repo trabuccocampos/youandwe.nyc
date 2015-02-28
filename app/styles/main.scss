@@ -5,8 +5,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // endbower
 
 // partials
-@import "pages/dayof";
 @import "pages/registry";
+@import "pages/where";
+@import "pages/activities";
+@import "pages/dayof";
+@import "pages/rsvp";
 // @import "plugins/monocle";
 
 
@@ -32,12 +35,16 @@ body,
     height: 100%;
 }
 
-// Navigation
-.nav {
-    margin-top: 10px;
+// Typekit in case fonts don't load
+.wf-inactive {
+    font-family: $font-family-default;
 }
 
 // General
+.page-wrap {
+    overflow-x: hidden;
+}
+
 .page a {
     border-bottom: 1px dotted $link-color;
 
@@ -47,54 +54,42 @@ body,
     }
 }
 
-
 // Essentials screen, vertically centered
 .center-content {
     height: 90%;
+}
+
+h1 {
+    font-family: $font-family-titling;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 4em;
 }
 
 .essentials {
     @include center-vertically();
 
     text-align: center;
-
-    overflow: hidden;
-
-    padding-left: 15px;
-    padding-right: 15px;
+    display: block;
 
     h1 {
-        // font-family: $font-family-titling;
+        font-family: $font-family-titling;
         font-size: 18em;
-        color: $gray-lighter;
-        color: $brand-warning;
-        font-weight: bold;
+        color: $teal-green;
+        font-weight: 800;
+        font-style: italic;
+        margin-bottom: -2%;
+    }
 
+    .lead {
+        font-weight: normal;
     }
 }
 
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .essentials {
-        border-bottom: 0;
-    }
+.mono {
+    font-family: $font-family-monospace;
 }
+
+// Responsive
+@import "responsive/responsive";
+@import "responsive/menu";
